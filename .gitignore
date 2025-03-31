@@ -1,0 +1,7 @@
+.vscode
+*.docx
+# Ignorar todas las carpetas __pycache__ en cualquier nivel
+**/__pycache__/
+**/data/
+informes/
+**/*.docx

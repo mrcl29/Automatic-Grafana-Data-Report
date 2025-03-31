@@ -1,0 +1,5 @@
+pytz==2024.2
+openpyxl==3.0.9
+pillow==10.4.0
+requests==2.32.3
+flask==3.0.3
