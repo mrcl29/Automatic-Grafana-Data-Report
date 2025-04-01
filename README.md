@@ -3,7 +3,7 @@
 > Actualmente solo esta disponible para sistemas operativos **Linux**. No se asegura el correcto funcionamiento en Windows o MacOS.
 
 ## **Descripción**
-**
+
 Proyecto con una serie de scripts que permiten realizar informes en formato excel recogiendo datos directemente desde la API de Grafana y en un rango de fechas personalizable.
 
 Todos los gráficos y la información que aparece en el informe tiene un grado alto de personalización gracias a una serie de parámetros configurables.
@@ -57,12 +57,13 @@ un array de 7 posiciones donde cada posición corresponde a una característica 
 información que saldrá de ese panel en el informe.
 Las opciones son:
     1. **Título** del panel.
-    2. **Tipo** de gráfico. (**“L”** = Gráfico de líneas // **“B”**** = Gráfico de barras)
+    2. **Tipo** de gráfico. (**“L”** = Gráfico de líneas // **“B”** = Gráfico de barras)
     3. **Tamaño** del gráfico. **“P”** = Pequeño // **“M”** = Mediano // **“G”** = Grande
     4. Indica si los datos recogidos son **binarios** (0, 1) o no. **“True”** // **“False”**
     5. Indica si se desea que en el gráfico aparezca la **leyenda** o no. **“True”** // **“False”**
     6. Indica si se desea **información extra** de los datos recogidos y si es así que tipo de información. **“”** = Sin información extra // **“INFO”** = Añade el texto deseado si no se ha recogido ningún dato // **“MAXMIN”** = Muestra los valores máximos y mínimos de la primera serie recogida del panel // **“TABLE”** = Muestra una tabla con los valores máximos y mínimos de todas las series recogidas del panel.
     7. **Texto adicional** que se muestra de una forma u otra dependiendo de la opción escogida en la posición 6.
+
 ![Dashboards Constant](assets/image_dashboards.png)
 
 ### Ejecución
@@ -106,9 +107,9 @@ Primero se debe configurar el archivo *config_flask.py* dentro de la carpeta *sc
 
 ![config_flask.py](assets/image_config_flask.png)
 
-- INFORMES_DIR: al igual que en el archivo config del script aquí se debe especificar la ruta donde se generan los scripts. Es recomendable que todos los informes diferentes que tengas apunten a la misma ruta para poder llegar a todos desde la API.
+- **INFORMES_DIR**: al igual que en el archivo config del script aquí se debe especificar la ruta donde se generan los scripts. Es recomendable que todos los informes diferentes que tengas apunten a la misma ruta para poder llegar a todos desde la API.
 
-- INFORMES_DICT: diccionario donde la clave es el nombre o id para identificar el script y indicarlo cuando se haga la petición, mientras que el valor es la ruta al script correspondiente.
+- **INFORMES_DICT**: diccionario donde la clave es el nombre o id para identificar el script y indicarlo cuando se haga la petición, mientras que el valor es la ruta al script correspondiente.
 
 > [!CAUTION]
 > Aquí es crucial que las rutas sean absolutas desde el root ('/') de tu máquina.
@@ -170,6 +171,10 @@ Finalmente reinicia el servicio para que se apliquen los cambios:
 systemctl restart nginx
 ```
 
-Ahora puedes ejecutar el script haciendo una petición HTTP de la forma **http://[IP]:5000/ejecutar_script/[id]**
-
+Ahora puedes ejecutar el script haciendo una petición HTTP de la forma:
+```
+**http://[IP]:5000/ejecutar_script/[id]**
+```
 Donde *IP* es la direcciónd de la máquina donde has configurado la API y *id* es la **clave** asignada al script *informe.py* en la constante **INFORMES_DICT** dentro de *config_flask.py*.
+
+Esto devuelve el informe en formato excel. Si lo ejecutas desde el navegador o desde un botón de grafana que haga la petición el archivo se descargará directamente en tu dispositivo.
